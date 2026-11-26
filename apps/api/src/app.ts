@@ -32,6 +32,7 @@ import { whatsappLogErrorContext } from './whatsapp/log-redaction.js';
 import type { AttachmentScanner } from './whatsapp/clamav-scanner.js';
 import type { createVideoPoster } from './whatsapp/media-thumbnail.js';
 import { installApiAddons, registerApiAddons, registerApiAddonRoutes } from './addons/registry.js';
+import { dockRealtimeRoutes } from './dock-realtime.js';
 import type { SchemaReadinessState } from './database/schema-state.js';
 
 declare module 'fastify' {
@@ -381,6 +382,8 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
     createVideoPoster: options.createVideoPoster,
     fetchContactAvatar: options.fetchContactAvatar,
   });
+
+  await app.register(dockRealtimeRoutes);
 
   return app;
 }

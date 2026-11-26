@@ -8,3 +8,4 @@ export type {
 export * from './types.js';
 export * from './errors.js';
 export * from './domain.js';
+export * from './dock-realtime.js';
