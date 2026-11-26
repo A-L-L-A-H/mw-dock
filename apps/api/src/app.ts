@@ -33,7 +33,10 @@ import type { AttachmentScanner } from './whatsapp/clamav-scanner.js';
 import type { createVideoPoster } from './whatsapp/media-thumbnail.js';
 import { installApiAddons, registerApiAddons, registerApiAddonRoutes } from './addons/registry.js';
 import { dockRealtimeRoutes } from './dock-realtime.js';
+import { dockRidAuthRoutes, verifyRidBearer, type RidAuthConfig } from './rid-auth.js';
 import type { SchemaReadinessState } from './database/schema-state.js';
+
+export { verifyRidBearer };
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -74,6 +77,8 @@ export interface BuildAppOptions {
   fetchContactAvatar?: typeof fetch;
   /** @deprecated Use attachmentStorage; retained for existing test/app callers. */
   attachmentStorageDirectory?: string;
+  /** Optional mw-rid asymmetric JWKS verification configuration. */
+  ridAuth?: RidAuthConfig;
 }
 
 function requestIdFromHeader(value: string | string[] | undefined): string | null {
@@ -384,6 +389,7 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   });
 
   await app.register(dockRealtimeRoutes);
+  await app.register(dockRidAuthRoutes, { ridAuth: options.ridAuth });
 
   return app;
 }
