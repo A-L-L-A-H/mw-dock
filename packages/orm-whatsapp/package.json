@@ -1,0 +1,42 @@
+{
+  "name": "@moonwitness/orm-whatsapp",
+  "version": "1.0.0-rc.1",
+  "description": "WhatsApp domain ORM models, access seeds, views, and addon manifest for MoonWitness",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc -p tsconfig.check.json && vitest run"
+  },
+  "dependencies": {
+    "@fastify/multipart": "^9.4.0",
+    "@moonwitness/jobs": "workspace:*",
+    "@moonwitness/orm": "workspace:*",
+    "@moonwitness/orm-base": "workspace:*",
+    "@moonwitness/orm-notification": "workspace:*",
+    "@moonwitness/orm-storage": "workspace:*",
+    "@moonwitness/types": "workspace:*",
+    "@whiskeysockets/baileys": "^6.7.16",
+    "fastify": "^5.12.8",
+    "knex": "^3.3.0",
+    "libphonenumber-js": "^1.13.15",
+    "qrcode": "^1.5.4",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.6",
+    "better-sqlite3": "^13.0.3",
+    "typescript": "~5.7.3",
+    "vitest": "5.0.3"
+  }
+}

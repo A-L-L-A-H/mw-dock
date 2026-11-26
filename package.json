@@ -1,0 +1,45 @@
+{
+  "name": "mw-dock",
+  "private": true,
+  "version": "1.0.0-rc.1",
+  "description": "MoonWitness Modular BaaS: Dynamic ORM, Core & Vertical Addons, REST/JSON-RPC, Auth, Jobs & TypeScript SDK",
+  "license": "ISC",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "bun --filter '*' build",
+    "api:build": "bun --filter @moonwitness/api build",
+    "dev": "bun --filter @moonwitness/api dev",
+    "start": "bun --filter @moonwitness/api start",
+    "db:migrate": "bun --filter @moonwitness/api db:migrate",
+    "jobs:worker": "bun --filter @moonwitness/api jobs:worker",
+    "jobs:scheduler": "bun --filter @moonwitness/api jobs:scheduler",
+    "jobs:outbox": "bun --filter @moonwitness/api jobs:outbox",
+    "reset:superadmin-password": "bun --filter @moonwitness/api reset:superadmin-password",
+    "revoke:auth-sessions": "bun --filter @moonwitness/api revoke:auth-sessions",
+    "attachments:reconcile": "bun --filter @moonwitness/api attachments:reconcile",
+    "test": "bun --filter @moonwitness/api test"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "typescript": "~5.7.3"
+  },
+  "overrides": {
+    "fast-jwt": "6.3.4",
+    "ip-address": "^10.7.4",
+    "objection": "3.1.5",
+    "typescript": "~5.7.3"
+  },
+  "trustedDependencies": [
+    "better-sqlite3",
+    "esbuild",
+    "protobufjs"
+  ],
+  "packageManager": "bun@1.4.5",
+  "engines": {
+    "node": "24.x"
+  }
+}
