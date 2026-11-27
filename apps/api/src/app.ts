@@ -34,6 +34,7 @@ import type { createVideoPoster } from './whatsapp/media-thumbnail.js';
 import { installApiAddons, registerApiAddons, registerApiAddonRoutes } from './addons/registry.js';
 import { dockRealtimeRoutes } from './dock-realtime.js';
 import { dockRidAuthRoutes, verifyRidBearer, type RidAuthConfig } from './rid-auth.js';
+import tenantQuotaPlugin, { type TenantQuotaOptions } from './middleware/tenant-quota.js';
 import type { SchemaReadinessState } from './database/schema-state.js';
 
 export { verifyRidBearer };
@@ -79,6 +80,8 @@ export interface BuildAppOptions {
   attachmentStorageDirectory?: string;
   /** Optional mw-rid asymmetric JWKS verification configuration. */
   ridAuth?: RidAuthConfig;
+  /** Optional tenant quota enforcement configuration; pass `false` to explicitly disable. */
+  tenantQuota?: TenantQuotaOptions | false;
 }
 
 function requestIdFromHeader(value: string | string[] | undefined): string | null {
@@ -284,6 +287,19 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
     jwtSecret,
     accessTtlSeconds: authConfig.accessTtlSeconds,
   });
+
+  if (
+    options.tenantQuota !== false &&
+    (options.tenantQuota !== undefined || process.env.TENANT_QUOTA_ENABLED === 'true')
+  ) {
+    const quotaOptions = typeof options.tenantQuota === 'object' ? options.tenantQuota : {};
+    if (quotaOptions.enabled !== false) {
+      await app.register(tenantQuotaPlugin, {
+        db,
+        ...quotaOptions,
+      });
+    }
+  }
 
   app.setErrorHandler((error, request, reply) => {
     if (error instanceof PlatformError) {
