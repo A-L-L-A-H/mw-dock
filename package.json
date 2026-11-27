@@ -7,7 +7,8 @@
   "type": "module",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "../mw-taskos"
   ],
   "scripts": {
     "build": "bun --filter '*' build",
