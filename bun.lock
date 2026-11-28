@@ -9,6 +9,22 @@
         "typescript": "~5.7.3",
       },
     },
+    "../mw-taskos": {
+      "name": "@moonwitness/plan-taskos",
+      "version": "1.0.0-rc.1",
+      "bin": {
+        "plan-taskos": "./dist/cli.js",
+      },
+      "dependencies": {
+        "ajv": "^8.20.0",
+        "ajv-formats": "^3.0.1",
+      },
+      "devDependencies": {
+        "@types/node": "^26.6.4",
+        "typescript": "~5.7.3",
+        "vitest": "^5.0.3",
+      },
+    },
     "apps/api": {
       "name": "@moonwitness/api",
       "version": "1.0.0-rc.1",
@@ -577,23 +593,6 @@
         "vitest": "5.0.3",
       },
     },
-    "packages/plan-taskos": {
-      "name": "@moonwitness/plan-taskos",
-      "version": "1.0.0-rc.1",
-      "bin": {
-        "plan-taskos": "./dist/cli.js",
-      },
-      "dependencies": {
-        "@moonwitness/types": "workspace:*",
-        "ajv": "^8.20.0",
-        "ajv-formats": "^3.0.1",
-      },
-      "devDependencies": {
-        "@types/node": "^26.6.4",
-        "typescript": "~5.7.3",
-        "vitest": "^5.0.3",
-      },
-    },
     "packages/research": {
       "name": "@moonwitness/research",
       "version": "1.0.0-rc.1",
@@ -905,7 +904,7 @@
 
     "@moonwitness/orm-workflow": ["@moonwitness/orm-workflow@workspace:packages/orm-workflow"],
 
-    "@moonwitness/plan-taskos": ["@moonwitness/plan-taskos@workspace:packages/plan-taskos"],
+    "@moonwitness/plan-taskos": ["@moonwitness/plan-taskos@workspace:../mw-taskos"],
 
     "@moonwitness/research": ["@moonwitness/research@workspace:packages/research"],
 
